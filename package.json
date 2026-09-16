@@ -1,0 +1,37 @@
+{
+  "name": "a3solution-pipeline",
+  "version": "1.0.0",
+  "description": "CRM pipeline A3Solution — application locale (Express + SQLite)",
+  "private": true,
+  "main": "electron/main.js",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "electron": "electron .",
+    "dist": "electron-builder"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "electron": "^32.0.0",
+    "electron-builder": "^25.0.0"
+  },
+  "build": {
+    "appId": "com.a3solution.pipeline",
+    "productName": "A3Solution Pipeline",
+    "files": [
+      "server.js",
+      "public/**/*",
+      "seed/**/*",
+      "electron/**/*",
+      "node_modules/**/*"
+    ],
+    "mac": { "target": "dmg", "category": "public.app-category.business" },
+    "win": { "target": "nsis" },
+    "linux": { "target": "AppImage" }
+  }
+}
