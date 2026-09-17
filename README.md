@@ -17,29 +17,42 @@ Claude (`window.claude.use("db")` et `window.claude.use("sample")`) par :
 Le modèle métier (5 étapes du pipeline, KPIs, synthèse graphique, synthèse
 stratégique) et la charte graphique A3Solution sont inchangés.
 
-## Démarrage rapide (mode navigateur)
+## Démarrage rapide — Windows (recommandé, sans terminal)
 
-Prérequis : [Node.js](https://nodejs.org) version 22.5 ou supérieure.
+1. Installez [Node.js](https://nodejs.org) (bouton **LTS**) — c'est un
+   installeur officiel, signé, qui ne sera jamais bloqué par un antivirus.
+   Cette étape ne se fait qu'une seule fois.
+2. Téléchargez ce dossier de projet (bouton vert **Code → Download ZIP**
+   sur GitHub) et décompressez-le.
+3. Double-cliquez sur **`Lancer A3Solution Pipeline.bat`**.
+
+Ce fichier installe les dépendances tout seul au premier lancement (une
+fenêtre noire s'affiche brièvement, c'est normal — c'est Node.js qui
+travaille, pas un virus), puis ouvre automatiquement votre navigateur sur
+l'application. Les lancements suivants sont quasi instantanés.
+
+Les données sont stockées dans `~/.a3solution-pipeline/pipeline.sqlite`
+(sur Windows : `C:\Users\<vous>\.a3solution-pipeline\pipeline.sqlite`) et
+persistent d'une session à l'autre. Au tout premier démarrage, les 14
+dossiers réels du cabinet (Takicorp, Cimencam, CCIF, etc.) sont importés
+automatiquement.
+
+> **Pourquoi pas le `.exe` Electron ?** Un exécutable Electron non signé
+> (voir plus bas) est régulièrement bloqué par les antivirus grand public
+> (Avast, notamment, via CyberCapture) le temps d'une analyse cloud qui
+> peut ne jamais aboutir pour un logiciel maison tout juste compilé.
+> `node.exe` est un binaire officiel très largement utilisé et signé : ce
+> chemin est nettement plus fiable au quotidien.
+
+## Démarrage rapide — macOS / Linux
 
 ```bash
 npm install
 npm start
 ```
 
-Puis ouvrez **http://localhost:4173** dans votre navigateur. Les données
-sont stockées dans `~/.a3solution-pipeline/pipeline.sqlite` et persistent
-d'une session à l'autre.
-
-Au premier démarrage, si aucune base n'existe encore, les 14 dossiers
-réels du cabinet (Takicorp, Cimencam, CCIF, etc.) sont importés
-automatiquement comme données de départ.
-
-### Créer un raccourci de lancement
-
-- **Windows** : créez un fichier `start.bat` contenant `npm start` dans ce
-  dossier, ou un raccourci vers `node server.js`.
-- **macOS/Linux** : `npm start` depuis un terminal, ou un script shell
-  `.command` / `.sh` qui fait `cd` vers ce dossier puis lance `npm start`.
+Puis ouvrez **http://localhost:4173** si le navigateur ne s'est pas ouvert
+tout seul.
 
 ## Mode application de bureau (Electron)
 
@@ -66,7 +79,10 @@ npm run dist
 Le résultat est déposé dans `dist/`. Pour obtenir un installeur Windows
 (.exe), lancez cette commande **sur une machine Windows** ; pour un
 installeur macOS (.dmg), lancez-la **sur une machine macOS** — c'est une
-contrainte d'`electron-builder`, pas de ce projet.
+contrainte d'`electron-builder`, pas de ce projet. Cet installeur n'étant
+pas signé (pas de certificat de signature de code), des antivirus comme
+Avast peuvent le bloquer pendant leur analyse cloud (CyberCapture) — voir
+le mode navigateur ci-dessus si c'est votre cas.
 
 ## Configurer la synthèse stratégique (optionnel)
 

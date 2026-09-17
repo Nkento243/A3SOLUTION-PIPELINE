@@ -4,6 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const os = require("os");
 const crypto = require("crypto");
+const { exec } = require("child_process");
 const express = require("express");
 const { DatabaseSync } = require("node:sqlite");
 
@@ -303,7 +304,16 @@ app.post("/api/synthesis/generate", async (req, res) => {
   }
 });
 
+function openBrowser(url) {
+  const cmd = process.platform === "win32" ? `start "" "${url}"`
+    : process.platform === "darwin" ? `open "${url}"`
+    : `xdg-open "${url}"`;
+  exec(cmd, () => {});
+}
+
 app.listen(PORT, () => {
-  console.log(`A3Solution Pipeline en écoute sur http://localhost:${PORT}`);
+  const url = `http://localhost:${PORT}`;
+  console.log(`A3Solution Pipeline en écoute sur ${url}`);
   console.log(`Base de données locale : ${DB_PATH}`);
+  if (!process.env.A3S_NO_BROWSER) openBrowser(url);
 });
