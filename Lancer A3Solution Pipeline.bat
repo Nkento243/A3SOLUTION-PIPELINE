@@ -14,7 +14,7 @@ if errorlevel 1 (
 
 if not exist "node_modules\express\package.json" (
   echo Installation des dependances ^(uniquement la premiere fois^)...
-  call npm install
+  call npm install --omit=dev
   if errorlevel 1 (
     echo.
     echo L'installation a echoue. Verifiez votre connexion internet et reessayez.
